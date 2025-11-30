@@ -9,27 +9,10 @@ An intelligent web-based Resume Analyzer that extracts text from resumes (PDF), 
 - ✅ Upload resume in PDF format  
 - ✅ Extracts text using:
   - Direct PDF Text Extraction
-  - OCR fallback using Tesseract (for scanned resumes)
-- ✅ AI-based resume analysis using **Gemini LLM**
-- ✅ Skill extraction
-- ✅ Job role suitability analysis
-- ✅ Experience estimation
-- ✅ Professional summary generation
-- ✅ REST API-based architecture
-- ✅ Supports Postman testing
-- ✅ Ready for deployment (Docker compatible)
-
----
-
-## 🧠 AI Model Used
-
-- **LLM:** :contentReference[oaicite:0]{index=0}  
-- **Provider:** Google Generative AI  
-- **Use Cases in Project:**
-  - Resume summarization
-  - Skill extraction
-  - Career recommendations
-  - Job profile matching
+- ✅ AI-based resume analysis using **Gemini LLM** and Generate:
+  - Skills list
+  - Education summary
+  - Work experience timeline
 
 ---
 
@@ -40,28 +23,83 @@ An intelligent web-based Resume Analyzer that extracts text from resumes (PDF), 
 | Node.js | Backend runtime |
 | Express.js | REST API framework |
 | Multer | File upload handling |
-| Tesseract.js | OCR for scanned PDFs |
-| pdf-text-extract | Text extraction from PDFs |
 | Gemini API | AI resume analysis |
-| Docker | Containerization |
-| Postman | API testing |
+
 
 ---
 
-## 📂 Project Structure
+ ## 📦 Setup Instructions
+### 1. Clone the Repository
 
 ```bash
-resume-analyzer/
-│
-├── backend/
-│   ├── controllers/
-│   ├── routes/
-│   ├── services/
-│   ├── uploads/
-│   ├── extractText.js
-│   ├── app.js
-│   ├── server.js
-│   └── .env
-│
-├── README.md
-└── package.json
+git clone https://github.com/your-username/resume-analyzer.git
+cd resume-analyzer
+```
+
+### 2. Configure Environment Variables
+
+Create `backend/.env`:
+
+```env
+PORT=3001
+GEMINI_API_KEY=your_api_key_here
+```
+
+### 3. Install Dependencies
+
+```bash
+npm install
+```
+
+### 4. Run the Server
+
+```bash
+npm start
+```
+
+Server will run at:
+-  http://localhost:3001
+
+---
+## 📤 API Endpoint
+
+POST /api/resume/analyze
+
+Form-Data:
+
+| Key    | Type | Value           |
+| ------ | ---- | --------------- |
+| resume | File | Upload your PDF |
+
+Sample API Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "skills": [
+            "Auditing",
+            "Financial Accounting",
+            "Financial Reporting"
+        ],
+        "education": [
+            {
+                "degree": "Senior Accountant",
+                "institution": "Borcelle University",
+                "year": "2026-2030"
+            },
+        ],
+        "experience": [
+            {
+                "role": "Senior Accountant",
+                "company": "Salford & Co.",
+                "duration": "2033 - 2035",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            },
+        ],
+        "summary": "Sebastian Bennett is a Professional Accountant with experience at Salford & Co. as a Senior and Financial Accountant, complemented by education from Borcelle University. His core skills include Auditing, Financial Accounting, and Financial Reporting."
+    }
+}
+```
+
+
